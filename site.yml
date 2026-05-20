@@ -1,0 +1,31 @@
+---
+# site.yml - Master playbook for EpicBook deployment
+#
+# Applies three roles in order against the [web] host group:
+#   1. common   - system updates, baseline packages, SSH hardening
+#   2. nginx    - install Nginx, deploy site config from Jinja2 template
+#   3. epicbook - clone app repo, set permissions, reload Nginx
+#
+# Variables load automatically from group_vars/web.yml
+#
+# Run:     ansible-playbook -i inventory.ini site.yml
+# Dry-run: ansible-playbook -i inventory.ini site.yml --check
+# Re-runs are safe - all tasks are idempotent
+
+- name: Prepare system
+  hosts: web
+  become: true
+  roles:
+    - common
+
+- name: Install and configure Nginx
+  hosts: web
+  become: true
+  roles:
+    - nginx
+
+- name: Deploy EpicBook application
+  hosts: web
+  become: true
+  roles:
+    - epicbook
