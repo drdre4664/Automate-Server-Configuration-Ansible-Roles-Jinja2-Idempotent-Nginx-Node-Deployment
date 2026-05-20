@@ -1,0 +1,42 @@
+# ============================================================
+# .gitignore — Files that should NEVER be committed to this repo
+# ============================================================
+
+# ── Ansible ─────────────────────────────────────────────────
+ansible/inventory.ini
+*.retry
+ansible.log
+group_vars/vault.yml
+host_vars/*/vault.yml
+.vault_pass
+
+# Inventory with real IPs
+inventory.ini
+!inventory.ini.example
+
+# ── Terraform ───────────────────────────────────────────────
+**/.terraform/
+**/.terraform.lock.hcl
+**/terraform.tfstate
+**/terraform.tfstate.backup
+**/terraform.tfvars
+!**/terraform.tfvars.example
+crash.log
+crash.*.log
+
+# ── Secrets and credentials ───────────────────────────────────
+.env
+.env.*
+!.env.example
+*.pem
+id_rsa
+id_rsa.*
+*.key
+
+# ── OS and IDE ────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/settings.json
+*.swp
+*.swo
